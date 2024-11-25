@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import iconGoogle from '../assest/logodegoogle.svg';
+import iconGoogle from '../assets/logodegoogle.svg';
 import SummaryApi from '../common';
 
 const SignUp = () => {
@@ -63,7 +63,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex flex-col bg-gray-100">
+    <div className="flex flex-col">
       <div className="relative flex flex-col m-3 space-y-4 bg-white shadow-xl rounded-2xl md:flex-row md:space-y-0 w-full max-w-md p-6 mx-auto flex-1">
         <div className="flex flex-col justify-center w-full">
           <span className="mb-2 text-3xl font-bold text-center md:text-left">¡Únete ahora!</span>
@@ -152,13 +152,13 @@ const SignUp = () => {
 
               <button
                 type="submit"
-                className="w-full bg-black text-white p-2 border border-transparent rounded-lg mb-4 hover:bg-yellow-500 hover:text-black hover:border-gray-300 transition-all duration-200"
+                className="w-full bg-[#ffcc00] text-[#333] p-2 border border-transparent rounded-xl text-lg font-semibold rounded-lg mb-4 hover:bg-yellow-500 hover:text-black hover:border-gray-300 transition-all duration-200 shadow-inset-custom"
               >
                 Crear cuenta
               </button>
 
               <button
-                className="w-full border border-gray-300 text-md p-2 rounded-lg mb-4 hover:bg-black hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                className="w-full border border-gray-300 text-[#333] text-lg font-semibold p-2 rounded-lg mb-4 hover:bg-black hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-400 shadow-inset-custom"
               >
                 <img src={iconGoogle} alt="Google" className="w-6 h-6 inline mr-2" />
                 Regístrate usando Google

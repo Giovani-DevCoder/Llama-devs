@@ -3,6 +3,8 @@ import App from '../App'
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp"
+import Chat from "../pages/Chat";
+import Game from "../pages/Game";
 
 const router = createBrowserRouter([
     {
@@ -20,6 +22,14 @@ const router = createBrowserRouter([
             {
                 path : "sign-up",
                 element : <SignUp/>
+            },
+            {
+                path : "chat",
+                element : <Chat/>
+            },
+            {
+                path : "game",
+                element : <Game/>
             }
         ]
     }

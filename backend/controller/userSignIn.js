@@ -33,7 +33,7 @@ async function userLoginController(req, res) {
     // Si las credenciales son correctas, generamos un JWT con la información del usuario
     // Aquí estamos usando la clave secreta 'secretKey' y estableciendo el tiempo de expiración del token a 1 hora
     const token = jwt.sign(
-      { userId: user._id, email: user.email, role: user.role }, // Información que se incluirá en el token
+      { _userId: user._id, email: user.email, role: user.role }, // Información que se incluirá en el token
       process.env.TOKEN_SECRET_KEY, // Clave secreta para firmar el token
       { expiresIn: '1h' } // El token expirará en 1 hora
     );
@@ -44,7 +44,7 @@ async function userLoginController(req, res) {
     }
 
     // Respondemos con un mensaje de éxito, el token generado y los detalles del usuario
-    res.cookie("token",token).json({
+    res.cookie("token",token,tokenOption).json({
       success: true,
       message: 'Login exitoso',
       token, // El token JWT que el cliente utilizará para futuras solicitudes
