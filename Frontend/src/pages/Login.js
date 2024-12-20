@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import iconGoogle from '../assets/logodegoogle.svg';
 import SummaryApi from '../common'; // Importa la configuración de la API
 import Context from '../context';
+import { toast } from 'sonner';
 
 const Login = () => {
   const navigate = useNavigate(); // Usamos navigate para redirigir al usuario
@@ -44,17 +45,16 @@ const Login = () => {
       });
 
       const responseData = await dataResponse.json();
-      console.log("data", responseData);
 
       if (responseData.success) {
+        toast.success(responseData.message)
         // Si la respuesta es exitosa, almacenamos el token y redirigimos al usuario
         localStorage.setItem('authToken', responseData.token); // Almacenar el token JWT en el localStorage
         navigate("/"); // Redirigir a la página de dashboard o alguna página protegida
         fetchUserDetails();
       } else {
-        console.log("Error en el login", responseData.message);
+        toast.warning(responseData.message)
         // Aquí puedes mostrar un mensaje de error si la autenticación falla
-        alert('Error al iniciar sesión: ' + responseData.message);
       }
     } catch (error) {
       console.error("Error en la solicitud de login:", error);
@@ -63,7 +63,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col bg-[#469ff1]">
+    <div className="flex flex-col">
       <div className="relative flex flex-col m-3 space-y-4 bg-white shadow-xl rounded-2xl md:flex-row md:space-y-0 w-full max-w-md p-6 mx-auto flex-1">
         <div className="flex flex-col justify-center w-full">
           <span className="mb-2 text-3xl font-bold text-center md:text-left">Bienvenido de vuelta</span>
@@ -117,13 +117,13 @@ const Login = () => {
 
               <button 
                 type="submit"
-                className="w-full px-8 py-3 bg-[#ffcc00] text-[#333] rounded-xl text-lg font-semibold rounded-lg mb-4 hover:bg-yellow-500 hover:text-black hover:border-gray-300 transition-all duration-200 shadow-inset-custom"
+                className="w-full px-8 py-3 bg-[#ffcc00] text-[#333] rounded-xl text-lg font-semibold rounded-lg mb-4 hover:bg-yellow-500 hover:text-black hover:border-gray-300 transition-all duration-200"
               >
                 Iniciar sesión
               </button>
 
               <button 
-                className="w-full border border-gray-300 text-[#333] rounded-xl text-lg font-semibold p-2 rounded-lg mb-4 hover:bg-black hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-400 shadow-inset-custom"
+                className="w-full border border-gray-300 text-[#333] rounded-xl text-lg font-semibold p-2 rounded-lg mb-4 hover:bg-black hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-400"
               >
                 <img src={iconGoogle} alt="Google" className="w-6 h-6 inline mr-2" />
                 Iniciar sesión con Google

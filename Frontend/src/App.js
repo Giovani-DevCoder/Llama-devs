@@ -2,49 +2,54 @@ import './App.css';
 import { Outlet } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
+import { Toaster } from 'sonner'
 import SummaryApi from './common';
 import Context from './context';
 import { useDispatch } from 'react-redux';
 import { setUserDetails } from './store/userslice';
 
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const fetchUserDetails = async()=> {
-    const dataResponse = await fetch(SummaryApi.current_user.url,{
-      method : SummaryApi.current_user.method,
-      credentials : "include"
+  // Memoriza la función fetchUserDetails para evitar recrearla en cada renderizado
+  const fetchUserDetails = useCallback(async () => {
+    const dataResponse = await fetch(SummaryApi.current_user.url, {
+      method: SummaryApi.current_user.method,
+      credentials: "include",
     });
 
     const dataApi = await dataResponse.json();
 
-    if(dataApi.success){
-      dispatch(setUserDetails(dataApi.data))
+    if (dataApi.success) {
+      dispatch(setUserDetails(dataApi.data));
     }
 
-    console.log("data-user",dataResponse)
+    console.log("data-user", dataResponse);
+  }, [dispatch]); // 'dispatch' como dependencia, ya que se usa dentro de la función
 
-  }
-
-  useEffect(()=>{
-    fetchUserDetails()
-
-  },[]);
+  // Ejecuta fetchUserDetails al montar el componente
+  useEffect(() => {
+    fetchUserDetails();
+  }, [fetchUserDetails]); // Ahora incluye fetchUserDetails como dependencia
 
   return (
     <>
-    <Context.Provider value ={{
-        fetchUserDetails  // user detail fetch
-    }}>
-      <Header/>
-      <main className='bg-[#469ff1] min-h-[calc(100vh-100px)]'>
-        <Outlet/>
-      </main>
-      <Footer/>
-    </Context.Provider>
-      </>
+      <Context.Provider
+        value={{
+          fetchUserDetails, // Proporciona la función en el contexto
+        }}
+      >
+        <Header />
+        <Toaster richColors position="top-right" />
+        <main className="min-h-[calc(100vh-100px)]">
+          <Outlet />
+        </main>
+        <Footer />
+      </Context.Provider>
+    </>
   );
 }
 
 export default App;
+

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import iconGoogle from '../assets/logodegoogle.svg';
 import SummaryApi from '../common';
+import { toast } from 'sonner';
 
 const SignUp = () => {
   const [data, setData] = useState({
@@ -41,7 +42,13 @@ const SignUp = () => {
 
         // Parseamos la respuesta del servidor
         const responseData = await dataResponse.json();
-        console.log("data", responseData);
+
+        if(responseData.success){
+          toast.success(responseData.message)
+        };
+        if(responseData.error){
+          toast.warning(responseData.message)
+        };
 
         // Verificamos si la creación fue exitosa
         if (responseData.success) {

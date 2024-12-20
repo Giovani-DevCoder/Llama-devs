@@ -4,18 +4,22 @@ const userModel = require("../models/userModel");
 async function userSignUpController(req, res) {
     try {
         const { email, password, firstName, lastName } = req.body;
+        const user = await userModel.findOne({email})
+        if(user){
+            throw new Error("Already user exits.")
+        }
 
         if (!email) {
-            throw new Error("please provide email");
+            throw new Error("Please provide email");
         }
         if (!password) {
-            throw new Error("please provide password");
+            throw new Error("Please provide password");
         }
         if (!firstName) {
-            throw new Error("please provide firstName");
+            throw new Error("Please provide firstName");
         }
         if (!lastName) {
-            throw new Error("please provide lastName");
+            throw new Error("Please provide lastName");
         }
 
         const saltRounds = 10; 

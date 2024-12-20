@@ -11,7 +11,7 @@ async function userLoginController(req, res) {
 
     // Verificamos si los campos email y password fueron proporcionados
     if (!email || !password) {
-      return res.status(400).json({ message: 'Por favor, ingresa un email y una contraseña' });
+      return res.status(400).json({ message: 'Enter a valid email and password' });
     }
 
     // Buscamos al usuario en la base de datos
@@ -19,7 +19,7 @@ async function userLoginController(req, res) {
     
     // Si no encontramos al usuario, retornamos un error 401 (no autorizado)
     if (!user) {
-      return res.status(401).json({ message: 'Usuario no encontrado' });
+      return res.status(401).json({ message: 'User not found' });
     }
 
     // Comparamos la contraseña proporcionada con la contraseña encriptada en la base de datos
@@ -27,7 +27,7 @@ async function userLoginController(req, res) {
     
     // Si las contraseñas no coinciden, retornamos un error 401 (contraseña incorrecta)
     if (!isPasswordMatch) {
-      return res.status(401).json({ message: 'Contraseña incorrecta' });
+      return res.status(401).json({ message: 'Incorrect password' });
     }
 
     // Si las credenciales son correctas, generamos un JWT con la información del usuario
@@ -46,7 +46,7 @@ async function userLoginController(req, res) {
     // Respondemos con un mensaje de éxito, el token generado y los detalles del usuario
     res.cookie("token",token,tokenOption).json({
       success: true,
-      message: 'Login exitoso',
+      message: 'Login successful',
       token, // El token JWT que el cliente utilizará para futuras solicitudes
       user: { email: user.email, role: user.role }, // Información básica del usuario
     });
@@ -54,7 +54,7 @@ async function userLoginController(req, res) {
   } catch (err) {
     // Si ocurre un error durante el proceso, lo capturamos y respondemos con un error genérico
     console.error(err); // Mostramos el error en la consola para fines de depuración
-    res.status(500).json({ message: 'Error en el servidor' }); // Respuesta de error del servidor
+    res.status(500).json({ message: 'Server error' }); // Respuesta de error del servidor
   }
 }
 

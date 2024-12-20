@@ -5,11 +5,11 @@ const backendDomin = 'http://localhost:8080';
 const SummaryApi = {
   signUP : {
     url : `${backendDomin}/api/signup`,  // URL para la creación de cuenta
-    method: 'POST'
+    method: 'post'
   },
   login : {
     url : `${backendDomin}/api/login`,  // URL para el login de usuarios
-    method  : 'POST'
+    method  : 'post'
   },
   current_user : {
     url: `${backendDomin}/api/user-details`,
@@ -18,6 +18,14 @@ const SummaryApi = {
   logout_user : {
     url : `${backendDomin}/api/userLogout`,
     method : 'get'
+  },
+  allUser : {
+    url : `${backendDomin}/api/all-users`,
+    method : 'get'
+  },
+  updateUser : {
+    url : `${backendDomin}/api/update-user`,
+    method : 'post'
   }
 };
 
